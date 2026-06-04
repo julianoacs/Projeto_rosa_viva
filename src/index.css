@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Nunito:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Rosa Viva — paleta acolhedora */
+    --background: 350 60% 99%;
+    --foreground: 290 30% 18%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 290 30% 18%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 290 30% 18%;
+
+    /* Rosa principal — Outubro Rosa */
+    --primary: 338 78% 56%;
+    --primary-foreground: 0 0% 100%;
+    --primary-soft: 338 85% 92%;
+    --primary-glow: 332 90% 75%;
+
+    /* Roxo suave acolhedor */
+    --secondary: 285 50% 94%;
+    --secondary-foreground: 285 45% 30%;
+
+    --muted: 340 40% 96%;
+    --muted-foreground: 290 15% 45%;
+
+    --accent: 285 65% 70%;
+    --accent-foreground: 0 0% 100%;
+    --accent-soft: 285 60% 95%;
+
+    --destructive: 0 75% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 340 40% 90%;
+    --input: 340 40% 92%;
+    --ring: 338 78% 56%;
+
+    --radius: 1.25rem;
+
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(338 85% 96%) 0%, hsl(285 60% 96%) 100%);
+    --gradient-warm: linear-gradient(135deg, hsl(338 78% 56%) 0%, hsl(320 75% 62%) 50%, hsl(285 65% 65%) 100%);
+    --gradient-soft: linear-gradient(180deg, hsl(350 60% 99%) 0%, hsl(338 60% 96%) 100%);
+    --gradient-card: linear-gradient(135deg, hsl(338 85% 97%) 0%, hsl(285 60% 97%) 100%);
+
+    /* Shadows */
+    --shadow-soft: 0 8px 30px -8px hsl(338 60% 70% / 0.25);
+    --shadow-bloom: 0 20px 50px -12px hsl(338 78% 56% / 0.35);
+    --shadow-card: 0 4px 20px -4px hsl(290 30% 50% / 0.1);
+
+    --transition-gentle: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Font scale (controlled by acessibilidade) */
+    --font-scale: 1;
+  }
+
+  /* Modo alto contraste */
+  .high-contrast {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 0%;
+    --primary: 330 100% 30%;
+    --primary-foreground: 0 0% 100%;
+    --primary-soft: 330 100% 92%;
+    --secondary: 0 0% 95%;
+    --secondary-foreground: 0 0% 0%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 15%;
+    --accent: 270 100% 30%;
+    --accent-foreground: 0 0% 100%;
+    --border: 0 0% 0%;
+    --input: 0 0% 0%;
+    --ring: 0 0% 0%;
+    --gradient-hero: none;
+    --gradient-warm: linear-gradient(135deg, hsl(330 100% 30%), hsl(270 100% 30%));
+    --gradient-soft: none;
+    --gradient-card: none;
+  }
+  .high-contrast * {
+    border-color: hsl(0 0% 0%) !important;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    font-size: calc(16px * var(--font-scale));
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground font-body;
+    font-feature-settings: "ss01";
+  }
+  h1, h2, h3, h4 {
+    @apply font-display;
+    letter-spacing: -0.02em;
+  }
+  /* Foco visível e acessível */
+  *:focus-visible {
+    @apply outline-none ring-4 ring-primary/40 ring-offset-2 ring-offset-background rounded-lg;
+  }
+}
+
+@layer utilities {
+  .gradient-warm {
+    background: var(--gradient-warm);
+  }
+  .gradient-hero {
+    background: var(--gradient-hero);
+  }
+  .gradient-soft {
+    background: var(--gradient-soft);
+  }
+  .gradient-card {
+    background: var(--gradient-card);
+  }
+  .shadow-soft { box-shadow: var(--shadow-soft); }
+  .shadow-bloom { box-shadow: var(--shadow-bloom); }
+  .shadow-card { box-shadow: var(--shadow-card); }
+  .transition-gentle { transition: var(--transition-gentle); }
+
+  .text-balance { text-wrap: balance; }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+  @keyframes bloom {
+    0% { transform: scale(0.95); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  @keyframes pulse-soft {
+    0%, 100% { box-shadow: 0 0 0 0 hsl(var(--primary) / 0.4); }
+    50% { box-shadow: 0 0 0 16px hsl(var(--primary) / 0); }
+  }
+  .animate-float { animation: float 6s ease-in-out infinite; }
+  .animate-bloom { animation: bloom 0.6s ease-out both; }
+  .animate-pulse-soft { animation: pulse-soft 2.5s ease-out infinite; }
+}
